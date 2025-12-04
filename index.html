@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGICOMER - Tu Aliado Digital</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navegación */
+        nav {
+            background: linear-gradient(135deg, #FF69B4 0%, #FFB6D9 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Secciones */
+        section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        #inicio {
+            background: linear-gradient(135deg, #FFB6D9 0%, #4DD9E8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-hero {
+            width: 300px;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .slogan {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #FF69B4;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #FF69B4;
+        }
+
+        /* Formulario de contacto */
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #FFB6D9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FF69B4;
+        }
+
+        /* Otras secciones */
+        #filosofia, #servicios, #recursos, #factibilidad {
+            background: linear-gradient(to bottom, #ffffff 0%, #FFE6F2 100%);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #FF69B4;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: #4DD9E8;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .philosophy-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(255,105,180,0.2);
+            transition: transform 0.3s;
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .philosophy-card h3 {
+            color: #FF69B4;
+            margin-top: 0;
+        }
+
+        .values-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .values-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: white;
+            border-left: 4px solid #4DD9E8;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .values-list li strong {
+            color: #FF69B4;
+        }
+
+        /* Tabla de precios */
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            border: 3px solid #FFB6D9;
+        }
+
+        .pricing-card:hover {
+            transform: scale(1.05);
+            border-color: #FF69B4;
+        }
+
+        .pricing-card h4 {
+            font-size: 1.5rem;
+            color: #FF69B4;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            color: #4DD9E8;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .pricing-card ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #FFE6F2;
+        }
+
+        /* KPIs */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(77,217,232,0.3);
+        }
+
+        .kpi-card h4 {
+            color: #FF69B4;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            color: #4DD9E8;
+            font-weight: bold;
+        }
+
+        /* Tabla de factibilidad */
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #FF69B4 0%, #FFB6D9 100%);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #FFE6F2;
+        }
+
+        tr:hover {
+            background: #FFE6F2;
+        }
+
+        /* Recursos */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .resource-card h4 {
+            color: #FF69B4;
+            margin-bottom: 1rem;
+        }
+
+        .download-btn {
+            background: #4DD9E8;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #FF69B4;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .slogan {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* Checkmark */
+        .checkmark {
+            color: #4DD9E8;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #FFB6D9 0%, #4DD9E8 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav>
+        <ul>
+            <li><a href="#inicio" onclick="showSection('inicio')">Inicio</a></li>
+            <li><a href="#filosofia" onclick="showSection('filosofia')">Filosofía</a></li>
+            <li><a href="#servicios" onclick="showSection('servicios')">Servicios</a></li>
+            <li><a href="#recursos" onclick="showSection('recursos')">Recursos</a></li>
+            <li><a href="#factibilidad" onclick="showSection('factibilidad')">Factibilidad</a></li>
+        </ul>
+    </nav>
+
+    <!-- PÁGINA 1: LANDING PAGE -->
+    <section id="inicio" class="active">
+        <div class="hero-content">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 200'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%23FF69B4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234DD9E8;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='80' font-weight='bold' fill='url(%23grad)' font-family='Arial, sans-serif'%3EDIGICOMER%3C/text%3E%3C/svg%3E" alt="DIGICOMER Logo" class="logo-hero">
+            
+            <h1>DIGICOMER</h1>
+            <p class="slogan">Digitalízate en minutos, crece sin límites</p>
+            <p class="hero-description">
+                Crea y administra tu mini sitio web inteligente en menos de 10 minutos. 
+                Marketing, pedidos y atención al cliente con inteligencia artificial. 
+                Reduce costos y facilita la digitalización. Incrementa las ventas y la visibilidad.
+            </p>
+
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="scrollToForm()">¡Empieza Gratis Ahora!</button>
+                <a href="#servicios" onclick="showSection('servicios')" class="btn btn-secondary">Conoce Más</a>
+            </div>
+
+            <div class="contact-form">
+                <h3 style="color: #FF69B4; text-align: center; margin-bottom: 1.5rem;">Contáctanos</h3>
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo *</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono *</label>
+                        <input type="tel" id="telefono" name="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="negocio">Tipo de Negocio *</label>
+                        <select id="negocio" name="negocio" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="retail">Retail / Tienda</option>
+                            <option value="gastronomia">Gastronomía</option>
+                            <option value="servicios">Servicios</option>
+                            <option value="artesanias">Artesanías</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Consulta</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 2: FILOSOFÍA -->
+    <section id="filosofia">
+        <div class="container">
+            <h2>Nuestra Filosofía</h2>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <h3>Visión</h3>
+                    <p>"Ser la plataforma líder en digitalización accesible para pequeños comercios en Latinoamérica, impulsando su crecimiento y transformando su presencia en la economía digital."</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3>Misión</h3>
+                    <p>"Simplificar el acceso a la tecnología para pequeños comercios mediante herramientas digitales intuitivas, soporte cercano y soluciones que faciliten la administración, venta y expansión del negocio en el mundo digital."</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3>Objetivos</h3>
+                    <p>Ayudar a pequeños comercios a digitalizarse, mejorar su presencia online y aumentar sus ventas mediante herramientas fáciles y efectivas.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Valores Fundamentales</h3>
+            <ul class="values-list">
+                <li>
+                    <strong>Empoderamiento:</strong> Creemos en darle a los pequeños negocios herramientas sencillas y poderosas para competir con los grandes.
+                </li>
+                <li>
+                    <strong>Simplicidad e Innovación:</strong> Ofrecemos soluciones digitales de vanguardia (como la IA) que son intuitivas, accesibles y que realmente trabajan para el comerciante.
+                </li>
+                <li>
+                    <strong>Transparencia:</strong> Nos enfocamos en ofrecer un servicio accesible con resultados medibles para que el comerciante pierda el miedo a invertir.
+                </li>
+            </ul>
+
+            <h3>Factores Clave de Éxito</h3>
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <h4>⚡ Facilidad de uso extrema</h4>
+                    <p>Setup en menos de 10 minutos</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>🤖 Integración de IA</h4>
+                    <p>Automatización inteligente</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>💰 Precio accesible</h4>
+                    <p>Para pequeños comercios</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>🎯 Soporte personalizado</h4>
+                    <p>Atención cercana y humana</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>📊 Resultados medibles</h4>
+                    <p>Métricas claras y tangibles</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>✅ Solución real</h4>
+                    <p>Resuelve problemas concretos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 3: SERVICIOS -->
+    <section id="servicios">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+
+            <div class="highlight">
+                <h3 style="color: white; margin-top: 0;">Propuesta de Valor</h3>
+                <p style="font-size: 1.2rem;">
+                    <strong>Tu tienda en línea, en tu bolsillo.</strong><br><br>
+                    El beneficio fundamental que entrega DIGICOMER es: <strong>Digitalización fácil, rápida y económica</strong> para que los pequeños comercios compitan, sin necesidad de ser expertos en tecnología o marketing. Convertimos los Puntos de Dolor en la Solución.
+                </p>
+            </div>
+
+            <h3>Servicios y Productos</h3>
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <h4>Mini Sitio Web Inteligente</h4>
+                    <ul>
+                        <li>✓ Creación en menos de 10 minutos</li>
+                        <li>✓ Diseño responsive</li>
+                        <li>✓ Catálogo personalizable</li>
+                    </ul>
+                    <div class="price">$15-25<span style="font-size: 1rem;">/mes</span></div>
+                </div>
+
+                <div class="pricing-card">
+                    <h4>Sistema de Pedidos con IA</h4>
+                    <ul>
+                        <li>✓ Chatbot 24/7</li>
+                        <li>✓ Gestión automatizada</li>
+                        <li>✓ Notificaciones en tiempo real</li>
+                    </ul>
+                    <div class="price">Incluido</div>
+                </div>
+
+                <div class="pricing-card">
+                    <h4>Marketing Digital Automatizado</h4>
+                    <ul>
+                        <li>✓ Campañas automáticas</li>
+                        <li>✓ Promociones programadas</li>
+                        <li>✓ Análisis de clientes</li>
+                    </ul>
+                    <div class="price">$10-15<span style="font-size: 1rem;">/mes</span></div>
+                </div>
+
+                <div class="pricing-card">
+                    <h4>Panel de Administración</h4>
+                    <ul>
+                        <li>✓ Dashboard con métricas</li>
+                        <li>✓ Gestión de inventario</li>
+                        <li>✓ Reportes de ventas</li>
+                    </ul>
+                    <div class="price">Incluido</div>
+                </div>
+            </div>
+
+            <h3>Público Objetivo</h3>
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <h4>🏪 Pequeños comercios locales</h4>
+                    <p>En Latinoamérica que buscan crecer</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>👥 Emprendedores</h4>
+                    <p>Sin conocimientos técnicos avanzados</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>💡 Negocios en crecimiento</h4>
+                    <p>Que buscan digitalizarse sin grandes inversiones</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>🎯 Edades 25-55 años</h4>
+                    <p>Sectores: retail, gastronomía, servicios, artesanías</p>
+                </div>
+            </div>
+
+            <h3>Planes y Precios</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Plan</th>
+                        <th>Precio/Mes</th>
+                        <th>Características</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Básico</strong></td>
+                        <td><strong>$15</strong></td>
+                        <td>Mini sitio web + Catálogo + Pedidos básicos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Profesional</strong></td>
+                        <td><strong>$25</strong></td>
+                        <td>Todo lo anterior + IA + Marketing automatizado + Análisis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Premium</strong></td>
+                        <td><strong>$40</strong></td>
+                        <td>Todo + Múltiples usuarios + API + Soporte prioritario</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- PÁGINA 4: RECURSOS -->
+    <section id="recursos">
+        <div class="container">
+            <h2>Recursos y Contenido</h2>
+
+            <h3>📹 Video Promocional</h3>
+            <div class="resource-card">
+                <h4>¿Cansado de perder ventas?</h4>
+                <p>Con DIGICOMER digitaliza tu negocio en 10 minutos. No necesitas ser experto. Tu tienda online lista para vender hoy.</p>
+                <p><strong>Duración:</strong> 30-60 segundos</p>
+                <p><strong>Contenido:</strong> Demo de la app, testimonios, beneficios clave</p>
+                <a href="#" class="download-btn">▶ Ver Video</a>
+            </div>
+
+            <h3>📄 Material Descargable</h3>
+            <div class="resource-card">
+                <h4>Flyer: "5 Razones para Digitalizar tu Negocio HOY"</h4>
+                <ul>
+                    <li>✓ Beneficios principales</li>
+                    <li>✓ Tabla de precios</li>
+                    <li>✓ Código QR para registro</li>
+                    <li>✓ Contacto directo</li>
+                </ul>
+                <a href="#" class="download-btn">⬇ Descargar PDF</a>
+            </div>
+
+            <h3>📰 Artículos de Interés</h3>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h4>¿Por qué los pequeños negocios necesitan presencia digital en 2025?</h4>
+                    <p>Estadísticas de e-commerce en Latinoamérica, cambios en comportamiento del consumidor y oportunidades de crecimiento.</p>
+                    <a href="#" class="download-btn">Leer más →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h4>IA para negocios: No es ciencia ficción, es tu nueva herramienta</h4>
+                    <p>Casos de uso prácticos, cómo la IA ahorra tiempo y dinero, desmitificando la tecnología.</p>
+                    <a href="#" class="download-btn">Leer más →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Del local físico al mundo digital: Guía paso a paso</h4>
+                    <p>Checklist de digitalización, errores comunes a evitar, historia de éxito real.</p>
+                    <a href="#" class="download-btn">Leer más →</a>
+                </div>
+            </div>
+
+            <h3>📊 KPIs - Indicadores Clave de Desempeño</h3>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <h4>Usuarios Registrados</h4>
+                    <div class="kpi-value">100</div>
+                    <p>en 3 meses</p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Tasa de Conversión</h4>
+                    <div class="kpi-value">25%</div>
+                    <p>Visitas → Registros</p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Tiempo de Setup</h4>
+                    <div class="kpi-value">&lt;10 min</div>
+                    <p>Registro a sitio publicado</p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Satisfacción</h4>
+                    <div class="kpi-value">4.5/5</div>
+                    <p>Encuestas NPS</p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Incremento Ventas</h4>
+                    <div class="kpi-value">+30%</div>
+                    <p>Reportado por usuarios</p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Retención</h4>
+                    <div class="kpi-value">80%</div>
+                    <p>Después de 3 meses</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 5: FACTIBILIDAD -->
+    <section id="factibilidad">
+        <div class="container">
+            <h2>Factibilidad del Proyecto</h2>
+
+            <h3>💻 Factibilidad Técnica</h3>
+            
+            <div class="highlight">
+                <h4 style="color: white; margin-top: 0;">Tecnología Requerida</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0;"><strong>Frontend:</strong> React Native (app móvil), React (web)</li>
+                    <li style="padding: 0.5rem 0;"><strong>Backend:</strong> Node.js + Express</li>
+                    <li style="padding: 0.5rem 0;"><strong>Base de datos:</strong> MongoDB o PostgreSQL</li>
+                    <li style="padding: 0.5rem 0;"><strong>IA/Chatbot:</strong> APIs de OpenAI o similar</li>
+                    <li style="padding: 0.5rem 0;"><strong>Hosting:</strong> AWS, Google Cloud</li>
+                    <li style="padding: 0.5rem 0;"><strong>Pagos:</strong> Pasarelas locales</li>
+                </ul>
+            </div>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <h4>✅ Recursos Técnicos</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Tecnología madura y disponible</li>
+                        <li>✓ Frameworks open-source</li>
+                        <li>✓ APIs de IA accesibles</li>
+                        <li>✓ Infraestructura cloud escalable</li>
+                    </ul>
+                </div>
+
+                <div class="philosophy-card">
+                    <h4>⏱️ Desarrollo</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><strong>MVP:</strong> 3-4 meses</li>
+                        <li><strong>Equipo:</strong> 3-4 desarrolladores</li>
+                        <li><strong>Costo inicial:</strong> $15,000-25,000</li>
+                        <li><strong>Mantenimiento:</strong> $2,000-3,000/mes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>👥 Factibilidad Operativa</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rol</th>
+                        <th>Responsabilidades</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Desarrollador Full Stack</strong></td>
+                        <td>Desarrollo y mantenimiento de la plataforma</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Diseñador UI/UX</strong></td>
+                        <td>Experiencia de usuario y diseño visual</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Especialista Marketing</strong></td>
+                        <td>Estrategia digital y captación de clientes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Soporte al Cliente</strong></td>
+                        <td>Atención y resolución de problemas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Project Manager</strong></td>
+                        <td>Coordinación general y planificación</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>⚠️ Análisis de Riesgos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Riesgo</th>
+                        <th>Probabilidad</th>
+                        <th>Impacto</th>
+                        <th>Mitigación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Baja adopción inicial</td>
+                        <td>Media</td>
+                        <td>Alto</td>
+                        <td>Marketing agresivo, período trial gratuito</td>
+                    </tr>
+                    <tr>
+                        <td>Competencia</td>
+                        <td>Alta</td>
+                        <td>Medio</td>
+                        <td>Diferenciación por simplicidad y precio</td>
+                    </tr>
+                    <tr>
+                        <td>Problemas técnicos</td>
+                        <td>Media</td>
+                        <td>Alto</td>
+                        <td>Testing exhaustivo, equipo de soporte</td>
+                    </tr>
+                    <tr>
+                        <td>Costos operativos altos</td>
+                        <td>Baja</td>
+                        <td>Alto</td>
+                        <td>Modelo SaaS escalable, automatización</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>💰 Viabilidad Financiera</h3>
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <h4>Inversión Inicial</h4>
+                    <p style="font-size: 2rem; color: #FF69B4; font-weight: bold;">$20,000-30,000</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>Break-Even</h4>
+                    <p style="font-size: 2rem; color: #4DD9E8; font-weight: bold;">150-200 clientes</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>Rentabilidad</h4>
+                    <p style="font-size: 2rem; color: #FF69B4; font-weight: bold;">12-18 meses</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>Margen Bruto</h4>
+                    <p style="font-size: 2rem; color: #4DD9E8; font-weight: bold;">60-70%</p>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3 style="color: white; margin-top: 0; text-align: center;">✅ CONCLUSIÓN DE FACTIBILIDAD</h3>
+                <p style="font-size: 1.3rem; text-align: center; margin-top: 1rem;">
+                    <strong>PROYECTO VIABLE</strong>
+                </p>
+                <ul style="list-style: none; padding: 0; margin-top: 1.5rem;">
+                    <li style="padding: 0.5rem 0;"><span class="checkmark">✓</span> Tecnología disponible y probada</li>
+                    <li style="padding: 0.5rem 0;"><span class="checkmark">✓</span> Mercado objetivo existe y está en crecimiento</li>
+                    <li style="padding: 0.5rem 0;"><span class="checkmark">✓</span> Modelo de negocio probado en otros países</li>
+                    <li style="padding: 0.5rem 0;"><span class="checkmark">✓</span> Equipo alcanzable con las habilidades necesarias</li>
+                    <li style="padding: 0.5rem 0;"><span class="checkmark">✓</span> Inversión razonable con ROI atractivo</li>
+                </ul>
+            </div>
+
+            <h3>🔑 Procesos Clave</h3>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h4>1. Onboarding</h4>
+                    <p>Sistema automatizado guía al usuario paso a paso desde el registro hasta la publicación de su sitio.</p>
+                </div>
+                <div class="resource-card">
+                    <h4>2. Soporte</h4>
+                    <p>Chat en vivo + WhatsApp Business + Base de conocimientos para resolver dudas rápidamente.</p>
+                </div>
+                <div class="resource-card">
+                    <h4>3. Mantenimiento</h4>
+                    <p>Updates automáticos, monitoreo 24/7 de la plataforma para garantizar disponibilidad.</p>
+                </div>
+                <div class="resource-card">
+                    <h4>4. Escalabilidad</h4>
+                    <p>Infraestructura cloud permite crecimiento sin límites conforme aumenta la base de usuarios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function scrollToForm() {
+            document.querySelector('.contact-form').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                nombre: document.getElementById('nombre').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value,
+                negocio: document.getElementById('negocio').value,
+                mensaje: document.getElementById('mensaje').value
+            };
+
+            alert('¡Gracias por tu interés en DIGICOMER!\n\nHemos recibido tu información:\n\nNombre: ' + formData.nombre + '\nEmail: ' + formData.email + '\nTeléfono: ' + formData.telefono + '\nTipo de negocio: ' + formData.negocio + '\n\nNos pondremos en contacto contigo pronto. 🚀');
+            
+            document.getElementById('contactForm').reset();
+        }
+
+        // Mostrar sección de inicio por defecto
+        window.addEventListener('load', function() {
+            showSection('inicio');
+        });
+    </script>
+</body>
+</html>
